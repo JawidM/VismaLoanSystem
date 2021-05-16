@@ -8,5 +8,9 @@ namespace VismaLoanSystem.Models
     public class HousingLoan : BaseLoan
     {
         public double InterestRatePerYear = 0.035;
+        //public override double GetMonthlyPayback()
+        //{
+        //    return Math.Round((DesiredAmount * (1 + (this.InterestRatePerYear * PaybackTime))) / (PaybackTime * 12), 2);
+        //}
     }
 }

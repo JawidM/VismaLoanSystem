@@ -29,10 +29,20 @@ namespace VismaLoanSystem.Controllers
             return View();
         }
 
+        //public ActionResult CalculateWithAjax(uint amount, uint year)
+        //{
+        //    var result = Math.Round((amount * (1 + (0.035 * year))) / (year * 12), 2);
+        //    var data = new { status = "ok", result = result };
+        //    return Json(data, JsonRequestBehavior.AllowGet);
+        //}
+
         public ActionResult CalculateWithAjax(uint amount, uint year)
         {
-            var result = Math.Round((amount * (1 + (0.035 * year))) / (year * 12), 2);
-            var data = new { status = "ok", result = result };
+            HousingLoan model = new HousingLoan();
+            model.DesiredAmount = amount;
+            model.PaybackTime = year;
+            model.MonthlyPayback = Math.Round((model.DesiredAmount * (1 + (model.InterestRatePerYear * model.PaybackTime))) / (model.PaybackTime * 12), 2);
+            var data = new { status = "ok", result = model.MonthlyPayback };
             return Json(data, JsonRequestBehavior.AllowGet);
         }
 
