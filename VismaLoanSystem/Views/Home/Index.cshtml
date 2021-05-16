@@ -1,0 +1,104 @@
+﻿@model VismaLoanSystem.Models.HousingLoan
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <script src="~/Scripts/jquery-3.4.1.js"></script>
+</head>
+<body>
+    <div class="row">
+        <br />
+        <h2>Calculate Simple Interest with model, Controller and MVC</h2>
+        @using (Html.BeginForm("/Index", "Home", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.DesiredAmount, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div>
+                        @Html.EditorFor(model => model.DesiredAmount, new { htmlAttributes = new { @class = "form-cotrol" } })
+                        @Html.ValidationMessageFor(model => model.DesiredAmount, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.PaybackTime, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div>
+                        @Html.EditorFor(model => model.PaybackTime, new { htmlAttributes = new { @class = "form-cotrol" } })
+                        @Html.ValidationMessageFor(model => model.PaybackTime, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <button type="submit" class="btn btn-info" id="Calculate" name="Calculate">Calculate</button>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.MonthlyPayback, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div>
+                        @Html.EditorFor(model => model.MonthlyPayback, new { htmlAttributes = new { @class = "form-cotrol" } })
+                        @Html.ValidationMessageFor(model => model.MonthlyPayback, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+        }
+        </div>
+
+    <p>------------------------------------------------------------------------------------------------------------------------</p>
+
+    <div>
+        <h2>Calculate Simple Interest with Ajax and Controller</h2>
+        <br />
+
+        <table>
+            <tr>
+                <td><h5 style="font-weight: bold">Desired Amount: </h5></td>
+                <td><input type="text" id="desiredAmount" alt="Desired Amount" /></td>
+            </tr>
+
+            <tr>
+                <td><h5 style="font-weight: bold">Payback Time (year): </h5></td>
+                <td><input type="text" id="paybackTime" alt="Payback Time" /></td>
+            </tr>
+
+            <tr>
+                <td>
+                    <div class="form-group">
+                        <div class="control-label col-md-2">
+                            <input type="button" id="calculateWithAjax" value="Calculate with Ajax" />
+                        </div>
+                    </div>
+                </td>
+                <td><h4 class="text-danger" id="ajaxResults"></h4></td>
+            </tr>
+        </table>
+    </div>
+    
+    <script>
+        $(document).ready(function () {
+            $("#calculateWithAjax").click(function () {
+                var desiredAmount = $("#desiredAmount").val();
+                var paybackTime = $("#paybackTime").val();
+                $.ajax({
+                    url: '@Url.Action("CalculateWithAjax","Home")?amount=' + desiredAmount + '&year=' + paybackTime,
+                    success: function (data) {
+                        if (data.status == "ok") {
+                            $("#ajaxResults").html(data.result);
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
+
+
