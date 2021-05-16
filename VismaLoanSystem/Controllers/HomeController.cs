@@ -29,13 +29,6 @@ namespace VismaLoanSystem.Controllers
             return View();
         }
 
-        //public ActionResult CalculateWithAjax(uint amount, uint year)
-        //{
-        //    var result = Math.Round((amount * (1 + (0.035 * year))) / (year * 12), 2);
-        //    var data = new { status = "ok", result = result };
-        //    return Json(data, JsonRequestBehavior.AllowGet);
-        //}
-
         public ActionResult CalculateWithAjax(uint amount, uint year)
         {
             HousingLoan model = new HousingLoan();

@@ -60,23 +60,21 @@
 
         <table>
             <tr>
-                <td><h5 style="font-weight: bold">Desired Amount: </h5></td>
+                <td><h5 style="font-weight: bold">Desired Amount </h5></td>
                 <td><input type="text" id="desiredAmount" alt="Desired Amount" /></td>
             </tr>
 
             <tr>
-                <td><h5 style="font-weight: bold">Payback Time (year): </h5></td>
+                <td><h5 style="font-weight: bold">Payback Time (year) </h5></td>
                 <td><input type="text" id="paybackTime" alt="Payback Time" /></td>
             </tr>
 
             <tr>
-                <td>
-                    <div class="form-group">
-                        <div class="control-label col-md-2">
-                            <input type="button" id="calculateWithAjax" value="Calculate with Ajax" />
-                        </div>
-                    </div>
-                </td>
+                <td><input type="button" id="calculateWithAjax" value="Calculate Monthly Payback" /></td>
+            </tr>
+
+            <tr>
+                <td><h5 style="font-weight: bold">Monthly Payback ==> </h5></td>
                 <td><h4 class="text-danger" id="ajaxResults"></h4></td>
             </tr>
         </table>
